@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Заказ №{{ data.id }}{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/order1.css' %}">
+<main>
+  <div class="card">
+    <div class="card__title">
+      <div class="icon">
+        <a href="#"><i class="fa fa-arrow-left"></i></a>
+      </div>
+      
+    </div>
+    <div class="card__body">
+      <div class="half">
+        <div class="featured_text">
+          <h1>{{title}}</h1>
+          <p>{{type}}</p>
+          <p class="price">{{price}}</p>
+        </div>
+        <div class="image">
+          <img src={{img}} alt="">
+        </div>
+      </div>
+      <div class="half">
+        <div class="description">
+          <p>{{text}}</p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+  <!-- Left Column / Headphones Image -->
+<!--</pre>
+  <div class="left-column"><img src={{img}} alt="Image" /> </div>
+  <pre> -->
+   
+    <!-- Right Column </pre>
+  <div class="right-column">--><!-- Product Description 
+  <div class="product-description">
+  <h1>{{title}}</h1>
+  <p> {{type}}</p>
+  <ul>
+   <li>{{text}}</li> 
+   <li>ejiembpkrgknobkrgb</li>
+   <li>kjwnrgoipeerm</li>
+  </ul>
+  -->
+  <!-- Product Pricing 
+  <div class="product-price">148$ <a class="cart-btn" href="#">Add to cart</a></div>
+  </div>
+  </div>
+  <pre>
+    -->
+{% endblock %}

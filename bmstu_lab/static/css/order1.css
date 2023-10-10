@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One|Montserrat:300,400,700,800|Open+Sans:300');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+    background-color: #eee;
+    margin: 10px;
+}
+
+main{
+  max-width: 720px;
+  margin: 5% auto;
+}
+.card{
+  box-shadow: 0 6px 6px rgba(#000, 0.3);
+  transition: 200ms;
+  background: #fff;
+}
+  
+  .card__title{
+    display: flex;
+    align-items: center;
+    padding: 30px 40px;
+  }
+
+
+    
+    .image{
+      padding-top: 10px;
+      width: 10px;
+      
+      
+    }
+    img{
+      display: block;
+      width: 300px;
+      height: 300px;
+    }
+    
+    .description{
+      margin-bottom: 25px;
+    }
+    .card__body{
+      margin-bottom: 10px;
+    }
+  
