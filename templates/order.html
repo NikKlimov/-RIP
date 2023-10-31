@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Заказ №{{ data.id }}{% endblock %}
+{% block title %}Заказ №{{ obj.id }}{% endblock %}
 
 {% block content %}
 {% load static %}
@@ -16,17 +16,17 @@
     <div class="card__body">
       <div class="half">
         <div class="featured_text">
-          <h1>{{title}}</h1>
-          <p>{{type}}</p>
-          <p class="price">{{price}}</p>
+          <h1>{{obj.name}}</h1>
+          <p>{{obj.get_type_display}}</p>
+          <p class="price">{{obj.price}}</p>
         </div>
         <div class="image">
-          <img src={{img}} alt="">
+          <img src={{obj.image.url}} alt="">
         </div>
       </div>
       <div class="half">
         <div class="description">
-          <p>{{text}}</p>
+          <p>{{obj.text}}</p>
         </div>
         </div>
       </div>

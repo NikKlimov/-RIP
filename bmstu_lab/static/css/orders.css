@@ -14,10 +14,13 @@ body{
   .container .card{
     position: relative;
     cursor: pointer;
+    display: inline-block;
+    width: 49%;
+    
   }
   
   .container .card .face{
-    width: 300px;
+   /* width: 300px;*/
     height: 200px;
     transition: 0.5s;
   }

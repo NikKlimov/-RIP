@@ -9,11 +9,11 @@
 <div class="box">
   <form name="search" method = "get" enctype="multipart/form-data">
     {% csrf_token %}
-      <input type="text" class="input" name="text" onmouseout="this.value = ''; this.blur();">
+      <input type="text" class="input" name="text" onmouseout="this.value = '{{ request.GET.text}}'; this.blur();">
   </form>
   <i class="fas fa-search"></i>
   
-  <a href="{% url 'basic_url' %}" class="buy-button">Отмена</a>
+  <a href="{% url 'basic_url' %}" class="buy-button">Назад</a>
 
 </div>
 <!--
@@ -41,14 +41,14 @@
 <ul class="card-grid">
   <div class="container">
     {% for order in data.orders %}
-    {% if forloop.counter0|divisibleby:3%}
+    {% if forloop.counter0|divisibleby:2%}
         <div class="row">
       {% endif %}
-      <div class="card">
+      <div class="card"> 
           <div class="face face1">
               <div class="content">
-                  <img src={{order.img}}>
-                  <h3>{{order.title}}</h3>
+                  <img src={{order.image.url}}>
+                  <h3>{{order.name}}</h3>
               </div>
           </div>
           <div class="face face2">
@@ -57,7 +57,7 @@
               </div>
           </div>
       </div> 
-      {% if forloop.counter|divisibleby:3 or forloop.last %}
+      {% if forloop.counter|divisibleby:2 or forloop.last %}
         </div>
       {% endif %}
     {% empty %}
