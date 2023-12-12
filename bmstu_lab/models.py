@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 # class Status(models.Model):
@@ -12,6 +13,8 @@ from django.db import models
 
 
 class Applications(models.Model):
+    def get_default_user():
+        return AuthUser.objects.get(username='Dell')
     DRAFT = "dr"
     DELETED = "de"
     CREATED = "cr"
@@ -24,19 +27,21 @@ class Applications(models.Model):
         (FINISHED, "Завершен"),
         (CANCELLED, "Отклонен"),
     ]
-    user = models.ForeignKey('AuthUser', models.DO_NOTHING, blank=True, null=True)
-    status = models.CharField(blank=True, null=True, max_length=30, choices=STATUS_CHOICES, default=CREATED)
+    user = models.ForeignKey('AuthUser', models.DO_NOTHING, blank=True, null=True, default=get_default_user)
+    status = models.CharField(blank=True, null=True, max_length=30, choices=STATUS_CHOICES, default=DRAFT)
     created_date = models.DateField(auto_now_add=True)
-    ended_date = models.DateField()
+    ended_date = models.DateField(blank=True, null=True)
     modified_date = models.DateField(auto_now=True)
     moderator = models.ForeignKey('AuthUser', models.DO_NOTHING, blank=True, null=True, related_name="moderated_applications")
-    services=models.ManyToManyField('Services', db_table='services_applications')
+    services=models.ManyToManyField('Services', db_table='services_applications',blank=True)
 
     class Meta:
         managed = False
         db_table = 'applications'
 
     def __str__(self):
+        if self.user is None:
+            return str(self.id)
         return self.user.username
 
 
@@ -70,7 +75,7 @@ class AuthPermission(models.Model):
         unique_together = (('content_type', 'codename'),)
 
 
-class AuthUser(models.Model):
+class AuthUser(AbstractUser):
     USER= "US"
     MODERATOR = "MO"
     ROLE_CHOICES = [
@@ -117,7 +122,7 @@ class AuthUserUserPermissions(models.Model):
         managed = False
         db_table = 'auth_user_user_permissions'
         unique_together = (('user', 'permission'),)
-
+        
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
@@ -182,6 +187,9 @@ class Services(models.Model):
     text=models.TextField(max_length=10000)
     type=models.CharField(blank=True, null=True, max_length=30, choices=TYPE_CHOICES)
     price=models.IntegerField()
+    published = models.BooleanField(max_length=30, default=True)
+    unit = models.CharField(blank=True, null=True)
+
 
 
     class Meta:
@@ -195,6 +203,7 @@ class Services(models.Model):
 class ServicesApplications(models.Model):
     services = models.ForeignKey(Services, models.DO_NOTHING, blank=True, null=True)
     applications = models.ForeignKey(Applications, models.DO_NOTHING, blank=True, null=True)
+    count = models.IntegerField()
 
     class Meta:
         managed = False

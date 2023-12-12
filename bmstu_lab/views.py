@@ -1,8 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Services
 from datetime import date
 from django.shortcuts import get_object_or_404
+from django.db import connection
 
 # data = {'data': {'orders': [
 #     {'id': 1, 'title': 'Декларирование товаров', 'img': 'https://akket.com/wp-content/uploads/2020/06/Posylki-s-AliExpress-tamozhnya-Sroki-0.jpg', 'text': 'Товары для личного пользования не превышающие 10000 ервро и весом не более 10 кг',
@@ -19,7 +20,7 @@ from django.shortcuts import get_object_or_404
 
 
 def GetOrders(request):
-    services = Services.objects.all()
+    services = Services.objects.filter(published=True)
     try:
         input_text = request.GET['text']
         if input_text:
@@ -31,3 +32,11 @@ def GetOrders(request):
 def GetOrder(request, id):
     obj=get_object_or_404(Services, pk=id)
     return render(request, 'order.html', {'obj':obj})
+
+def DeleteOrder(request, id):
+    # if request.method != "POST": 
+    #     raise Exception("Method not allowed!")
+    obj=get_object_or_404(Services.objects.filter(published=True), pk=id)
+    with connection.cursor() as cursor: 
+        cursor.execute("UPDATE Services SET published = false WHERE id= %s", [obj.id])
+    return redirect('/')

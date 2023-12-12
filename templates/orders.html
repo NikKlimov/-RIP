@@ -13,7 +13,7 @@
   </form>
   <i class="fas fa-search"></i>
   
-  <a href="{% url 'basic_url' %}" class="buy-button">Назад</a>
+  <!-- <a href="{% url 'basic_url' %}" class="buy-button">Назад</a> -->
 
 </div>
 <!--
@@ -54,6 +54,9 @@
           <div class="face face2">
               <div class="content">
                       <a href="{% url 'order_url' order.id %}">Подробнее</a>
+              </div>
+              <div class="content">
+                <a href="{% url 'delete_order' order.id %}">Удалить</a>
               </div>
           </div>
       </div> 

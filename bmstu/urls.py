@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from bmstu_lab import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,7 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.GetOrders, name = 'basic_url'),
     path('order/<int:id>/', views.GetOrder, name='order_url'),
+    path('order/<int:id>/delete', views.DeleteOrder, name='delete_order'),
     #path('sendText',views.sendText, name = 'sendText'),
     #path('sendInfo', views.Filter, name = 'sendInfo')
+    path('api/v1/', include('api.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
